@@ -8,17 +8,15 @@ const kelasController = require('../controllers/kelas.controller')
 const router = new express.Router();
 
 const {tokenAdmin} = require('../auth/tokenAdmin_validation');
-const { route } = require('express/lib/application');
 
-//Login Register
+//Register
 router.post("/signup",tokenAdmin,adminController.signup)
-router.post("/login",adminController.login)
 
 //Data Petugas
-router.get("/dataPetugas",tokenAdmin,adminController.dataPetugas)
-router.post("/addPetugas",tokenAdmin,petugasController.signup)
-router.put("/updatePetugas/:id",tokenAdmin,adminController.updatePetugas)
-router.delete("/deletePetugas/:id",tokenAdmin,adminController.deletePetugas)
+router.get("/dataPetugas",tokenAdmin,petugasController.dataPetugas)
+router.post("/addPetugas",tokenAdmin,petugasController.addPetugas)
+router.put("/updatePetugas/:id",tokenAdmin,petugasController.updatePetugas)
+router.delete("/deletePetugas/:id",tokenAdmin,petugasController.deletePetugas)
 
 //Data Kelas
 router.post("/addKelas",tokenAdmin,kelasController.addKelas)
