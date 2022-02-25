@@ -39,6 +39,20 @@ module.exports = {
             }
         })
     },
+    idPetugas: (req, res) => {
+        const id = req.params.id
+
+        db.query(`SELECT * FROM petugas WHERE id_petugas = '${id}'`, (err,result) => {
+            if(err){
+                throw err
+            }else{
+                res.json({
+                    message: "get success",
+                    result
+                })
+            }
+        })
+    },
     updatePetugas: (req, res) => {
         const id = req.params.id
         const { username, password, namaPetugas } = req.body
@@ -80,7 +94,7 @@ module.exports = {
                     throw err
                 }else{
                     res.json({
-                        message: `Successfully delete ID = ${id}`,
+                        message: `Successfully delete petugas ID = ${id}`,
                         deleted: dataDeleted
                     })
                 }

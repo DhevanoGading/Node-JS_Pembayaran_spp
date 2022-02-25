@@ -3,78 +3,80 @@
 const db = require('../db')
 
 module.exports = {
-    addKelas: (req, res) => {
-        let { kelas, jurusan } = req.body
-        if(!kelas || !jurusan){
+    addSpp: (req, res) => {
+        let { tahun, nominal } = req.body
+
+        if(!tahun || !nominal){
             res.status(402).json({
-                message: 'kelas and jurusan cannot be empty'
+                message: 'tahun and nominal cannot be empty'
             })
         }else{
-            return db.query(`INSERT INTO kelas (nama_kelas, jurusan) VALUES ('${kelas}','${jurusan}')`, (err,result) => {
+            return db.query(`INSERT INTO spp SET ?`, {tahun, nominal}, (err,result) => {
                 if(err){
                     return res.status(500).json({err})
                 }else{
                     return res.json({
-                        message: "add classroom success",
+                        message: "add spp success",
                         data: result
                     })
                 }
             })
         }
     },
-    dataKelas: (req, res) => {
-        db.query(`SELECT * FROM kelas`, (err,result) => {
+    dataSpp: (req, res) => {
+        db.query(`SELECT * FROM spp`, (err,result) => {
             if(err){
                 throw err
             }else{
                 res.json({
-                    message: "get success",
+                    message: "get spp success",
                     result
                 })
             }
         })
     },
-    idKelas: (req, res) => {
+    idSpp: (req, res) => {
         let id = req.params.id
-        db.query(`SELECT * FROM kelas WHERE id_kelas = '${id}'`, (err,result) => {
+        db.query(`SELECT * FROM spp WHERE id_spp = '${id}'`, (err,result) => {
             if(err){
                 throw err
             }else{
                 res.json({
-                    message: "get success",
+                    message: "get spp success",
                     result
                 })
             }
         })
     },
-    updateKelas: (req, res) => {
+    updateSpp: (req, res) => {
         const id = req.params.id
-        const { kelas, jurusan } = req.body
+        const { tahun, nominal } = req.body
+        const level = 'Siswa'
         
-        if(!id, !kelas || !jurusan){
+        if(!tahun || !nominal){
             res.status(402).json({
-                message: 'id, kelas, and jurusan cannot be empty'
+                message: 'Tahun and nominal cannot be empty'
             })
         }else{
-            return db.query(`UPDATE kelas SET nama_kelas = '${kelas}', jurusan = '${jurusan}' WHERE id_kelas = '${id}'`, (err,result) => {
+            return db.query(`UPDATE spp SET ? WHERE id_spp = '${id}'`, {tahun, nominal}, (err,result) => {
                 if(err){
                     return res.status(500).json({err})
                 }else{
                     return res.json({
-                        message: "update class success",
+                        message: "update spp success",
                         data: result
                     })
                 }
             })
         }
     },
-    deleteKelas: (req, res) => {
-        let id = req.params.id;
+    deleteSpp: (req, res) => {
+        let id = req.params.id
 
         let dataDeleted;
 
         if(id){
-            db.query(`SELECT * FROM kelas WHERE id_kelas = ?`, id, (err,result) => {
+            db.query(`SELECT * FROM spp WHERE id_spp = ?`, id, (err,result) => {
                 if(err){
                     throw err
                 }else{
@@ -83,12 +85,12 @@ module.exports = {
             })
         }
         if(id){
-            db.query(`DELETE FROM kelas WHERE id_kelas = ?`, id, (err,result) => {
+            db.query(`DELETE FROM spp WHERE id_spp = ?`, id, (err,result) => {
                 if(err){
                     throw err
                 }else{
                     res.json({
-                        message: `Successfully delete kelas ID = ${id}`,
+                        message: `Successfully delete spp nisn = ${id}`,
                         deleted: dataDeleted
                     })
                 }
