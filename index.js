@@ -31,6 +31,7 @@ app.get("/", (req,res) => {
 app.use("/auth",require('./routes/login.route'))
 app.use("/admin",require('./routes/admin.route'))
 app.use("/petugas",require('./routes/petugas.route'))
+app.use("/siswa",require('./routes/siswa.route'))
 
 const port = 8888;
 app.listen(port, () => console.log (`App berhasil berjalan di ${port}`))

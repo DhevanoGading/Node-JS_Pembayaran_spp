@@ -4,13 +4,13 @@ const db = require('../db')
 
 module.exports = {
     addKelas: (req, res) => {
-        let { kelas, jurusan } = req.body
-        if(!kelas || !jurusan){
+        let { kelas, jurusan, angkatan } = req.body
+        if(!kelas, !jurusan || !angkatan){
             res.status(402).json({
-                message: 'kelas and jurusan cannot be empty'
+                message: 'kelas, jurusan and angkatan cannot be empty'
             })
         }else{
-            return db.query(`INSERT INTO kelas (nama_kelas, jurusan) VALUES ('${kelas}','${jurusan}')`, (err,result) => {
+            return db.query(`INSERT INTO kelas (nama_kelas, jurusan, angkatan) VALUES ('${kelas}','${jurusan}','${angkatan}')`, (err,result) => {
                 if(err){
                     return res.status(500).json({err})
                 }else{
@@ -49,14 +49,14 @@ module.exports = {
     },
     updateKelas: (req, res) => {
         const id = req.params.id
-        const { kelas, jurusan } = req.body
+        const { kelas, jurusan, angkatan } = req.body
         
-        if(!id, !kelas || !jurusan){
+        if(!id, !kelas, !jurusan || !angkatan){
             res.status(402).json({
                 message: 'id, kelas, and jurusan cannot be empty'
             })
         }else{
-            return db.query(`UPDATE kelas SET nama_kelas = '${kelas}', jurusan = '${jurusan}' WHERE id_kelas = '${id}'`, (err,result) => {
+            return db.query(`UPDATE kelas SET nama_kelas = '${kelas}', jurusan = '${jurusan}', angkatan = '${angkatan}' WHERE id_kelas = '${id}'`, (err,result) => {
                 if(err){
                     return res.status(500).json({err})
                 }else{

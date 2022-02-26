@@ -64,7 +64,7 @@ module.exports = {
                 message: 'Data cannot be empty'
             })
         }else{
-            return db.query(`UPDATE siswa SET ? WHERE nisn = '${nisn}'`, {nis, nama, id_kelas, alamat, no_telp, username, password, level}, (err,result) => {
+            return db.query(`UPDATE siswa SET ? WHERE nisn = '${nisn}'`, {nis, nama, id_kelas, alamat, no_telp, username, password:hashPassword(password), level}, (err,result) => {
                 if(err){
                     return res.status(500).json({err})
                 }else{

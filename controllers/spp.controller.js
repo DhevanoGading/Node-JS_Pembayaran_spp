@@ -4,14 +4,14 @@ const db = require('../db')
 
 module.exports = {
     addSpp: (req, res) => {
-        let { tahun, nominal } = req.body
+        let { angkatan, tahun, nominal } = req.body
 
-        if(!tahun || !nominal){
+        if(!angkatan, !tahun || !nominal){
             res.status(402).json({
-                message: 'tahun and nominal cannot be empty'
+                message: 'angkatan, tahun and nominal cannot be empty'
             })
         }else{
-            return db.query(`INSERT INTO spp SET ?`, {tahun, nominal}, (err,result) => {
+            return db.query(`INSERT INTO spp SET ?`, {angkatan, tahun, nominal}, (err,result) => {
                 if(err){
                     return res.status(500).json({err})
                 }else{
@@ -50,15 +50,14 @@ module.exports = {
     },
     updateSpp: (req, res) => {
         const id = req.params.id
-        const { tahun, nominal } = req.body
-        const level = 'Siswa'
+        const { angkatan, tahun, nominal } = req.body
         
-        if(!tahun || !nominal){
+        if(!angkatan, !tahun || !nominal){
             res.status(402).json({
-                message: 'Tahun and nominal cannot be empty'
+                message: 'angkatan, tahun and nominal cannot be empty'
             })
         }else{
-            return db.query(`UPDATE spp SET ? WHERE id_spp = '${id}'`, {tahun, nominal}, (err,result) => {
+            return db.query(`UPDATE spp SET ? WHERE id_spp = '${id}'`, {angkatan, tahun, nominal}, (err,result) => {
                 if(err){
                     return res.status(500).json({err})
                 }else{
@@ -90,7 +89,7 @@ module.exports = {
                     throw err
                 }else{
                     res.json({
-                        message: `Successfully delete spp nisn = ${id}`,
+                        message: `Successfully delete spp id = ${id}`,
                         deleted: dataDeleted
                     })
                 }
